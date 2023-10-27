@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.cloudburstmc.nbt.NbtMap;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.v419.serializer.StartGameSerializer_v419;
+import org.cloudburstmc.protocol.bedrock.data.AuthoritativeMovementMode;
 import org.cloudburstmc.protocol.bedrock.data.BlockPropertyData;
 import org.cloudburstmc.protocol.bedrock.data.GameType;
 import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleItemDefinition;
@@ -93,7 +94,8 @@ public class StartGameSerializer_v428 extends StartGameSerializer_v419 {
     }
 
     protected void readSyncedPlayerMovementSettings(ByteBuf buffer, StartGamePacket packet) {
-        packet.setAuthoritativeMovementMode(MOVEMENT_MODES[VarInts.readInt(buffer)]);
+        int type = VarInts.readInt(buffer);
+        packet.setAuthoritativeMovementMode(type != -1 ? MOVEMENT_MODES[type] : AuthoritativeMovementMode.CLIENT);
         packet.setRewindHistorySize(VarInts.readInt(buffer));
         packet.setServerAuthoritativeBlockBreaking(buffer.readBoolean());
     }
