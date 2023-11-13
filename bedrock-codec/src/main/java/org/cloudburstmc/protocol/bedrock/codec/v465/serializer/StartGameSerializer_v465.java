@@ -10,6 +10,7 @@ import org.cloudburstmc.protocol.bedrock.data.GamePublishSetting;
 import org.cloudburstmc.protocol.bedrock.data.GameType;
 import org.cloudburstmc.protocol.bedrock.data.SpawnBiomeType;
 import org.cloudburstmc.protocol.bedrock.packet.StartGamePacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.OptionalBoolean;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
@@ -46,7 +47,7 @@ public class StartGameSerializer_v465 extends StartGameSerializer_v440 {
         buffer.writeBoolean(packet.isExperimentsPreviouslyToggled());
         buffer.writeBoolean(packet.isBonusChestEnabled());
         buffer.writeBoolean(packet.isStartingWithMap());
-        VarInts.writeInt(buffer, packet.getDefaultPlayerPermission().ordinal());
+        VarInts.writeOrdinalInt(buffer, packet.getDefaultPlayerPermission());
         buffer.writeIntLE(packet.getServerChunkTickRange());
         buffer.writeBoolean(packet.isBehaviorPackLocked());
         buffer.writeBoolean(packet.isResourcePackLocked());
@@ -94,7 +95,7 @@ public class StartGameSerializer_v465 extends StartGameSerializer_v440 {
         packet.setExperimentsPreviouslyToggled(buffer.readBoolean());
         packet.setBonusChestEnabled(buffer.readBoolean());
         packet.setStartingWithMap(buffer.readBoolean());
-        packet.setDefaultPlayerPermission(PLAYER_PERMISSIONS[VarInts.readInt(buffer)]);
+        packet.setDefaultPlayerPermission(NullableEnum.get(PLAYER_PERMISSIONS, VarInts.readInt(buffer)));
         packet.setServerChunkTickRange(buffer.readIntLE());
         packet.setBehaviorPackLocked(buffer.readBoolean());
         packet.setResourcePackLocked(buffer.readBoolean());

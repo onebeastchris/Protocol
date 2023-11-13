@@ -9,6 +9,7 @@ import org.cloudburstmc.protocol.bedrock.codec.BedrockPacketSerializer;
 import org.cloudburstmc.protocol.bedrock.data.*;
 import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleItemDefinition;
 import org.cloudburstmc.protocol.bedrock.packet.StartGamePacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.OptionalBoolean;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
@@ -35,7 +36,7 @@ public class StartGameSerializer_v419 implements BedrockPacketSerializer<StartGa
         helper.writeString(buffer, packet.getLevelName());
         helper.writeString(buffer, packet.getPremiumWorldTemplateId());
         buffer.writeBoolean(packet.isTrial());
-        VarInts.writeInt(buffer, packet.getAuthoritativeMovementMode().ordinal());
+        VarInts.writeOrdinalInt(buffer, packet.getAuthoritativeMovementMode());
         buffer.writeLongLE(packet.getCurrentTick());
         VarInts.writeInt(buffer, packet.getEnchantmentSeed());
 
@@ -68,7 +69,7 @@ public class StartGameSerializer_v419 implements BedrockPacketSerializer<StartGa
         packet.setLevelName(helper.readString(buffer));
         packet.setPremiumWorldTemplateId(helper.readString(buffer));
         packet.setTrial(buffer.readBoolean());
-        packet.setAuthoritativeMovementMode(MOVEMENT_MODES[VarInts.readInt(buffer)]);
+        packet.setAuthoritativeMovementMode(NullableEnum.get(MOVEMENT_MODES, VarInts.readInt(buffer)));
         packet.setCurrentTick(buffer.readLongLE());
         packet.setEnchantmentSeed(VarInts.readInt(buffer));
 
@@ -117,7 +118,7 @@ public class StartGameSerializer_v419 implements BedrockPacketSerializer<StartGa
         buffer.writeBoolean(packet.isExperimentsPreviouslyToggled());
         buffer.writeBoolean(packet.isBonusChestEnabled());
         buffer.writeBoolean(packet.isStartingWithMap());
-        VarInts.writeInt(buffer, packet.getDefaultPlayerPermission().ordinal());
+        VarInts.writeOrdinalInt(buffer, packet.getDefaultPlayerPermission());
         buffer.writeIntLE(packet.getServerChunkTickRange());
         buffer.writeBoolean(packet.isBehaviorPackLocked());
         buffer.writeBoolean(packet.isResourcePackLocked());
@@ -162,7 +163,7 @@ public class StartGameSerializer_v419 implements BedrockPacketSerializer<StartGa
         packet.setExperimentsPreviouslyToggled(buffer.readBoolean());
         packet.setBonusChestEnabled(buffer.readBoolean());
         packet.setStartingWithMap(buffer.readBoolean());
-        packet.setDefaultPlayerPermission(PLAYER_PERMISSIONS[VarInts.readInt(buffer)]);
+        packet.setDefaultPlayerPermission(NullableEnum.get(PLAYER_PERMISSIONS, VarInts.readInt(buffer)));
         packet.setServerChunkTickRange(buffer.readIntLE());
         packet.setBehaviorPackLocked(buffer.readBoolean());
         packet.setResourcePackLocked(buffer.readBoolean());

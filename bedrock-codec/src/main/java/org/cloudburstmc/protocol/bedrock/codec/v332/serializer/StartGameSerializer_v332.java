@@ -38,7 +38,7 @@ public class StartGameSerializer_v332 extends StartGameSerializer_v291 { // No n
         helper.writeArray(buffer, packet.getGamerules(), helper::writeGameRule);
         buffer.writeBoolean(packet.isBonusChestEnabled());
         buffer.writeBoolean(packet.isStartingWithMap());
-        VarInts.writeInt(buffer, packet.getDefaultPlayerPermission().ordinal());
+        VarInts.writeOrdinalInt(buffer, packet.getDefaultPlayerPermission());
         buffer.writeIntLE(packet.getServerChunkTickRange());
         buffer.writeBoolean(packet.isBehaviorPackLocked());
         buffer.writeBoolean(packet.isResourcePackLocked());

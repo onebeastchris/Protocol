@@ -10,6 +10,14 @@ public class VarInts {
         encode(buffer, ((value << 1) ^ (value >> 31)) & 0xFFFFFFFFL);
     }
 
+    public static void writeOrdinalInt(ByteBuf buffer, Enum<?> value) {
+        if (value == null) {
+            writeInt(buffer, -1);
+        } else {
+            writeInt(buffer, value.ordinal());
+        }
+    }
+
     public static int readInt(ByteBuf buffer) {
         int n = (int) decode(buffer, 32);
         return (n >>> 1) ^ -(n & 1);

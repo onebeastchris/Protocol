@@ -105,7 +105,7 @@ public class StartGameSerializer_v291 implements BedrockPacketSerializer<StartGa
         buffer.writeBoolean(packet.isBonusChestEnabled());
         buffer.writeBoolean(packet.isStartingWithMap());
         buffer.writeBoolean(packet.isTrustingPlayers());
-        VarInts.writeInt(buffer, packet.getDefaultPlayerPermission().ordinal());
+        VarInts.writeOrdinalInt(buffer, packet.getDefaultPlayerPermission());
         VarInts.writeInt(buffer, packet.getXblBroadcastMode().ordinal());
         buffer.writeIntLE(packet.getServerChunkTickRange());
         buffer.writeBoolean(packet.getPlatformBroadcastMode() != GamePublishSetting.NO_MULTI_PLAY);
