@@ -52,8 +52,8 @@ public class SimpleDefinitionRegistry<D extends Definition> implements Definitio
 
         public Builder<D> add(D definition) {
             checkNotNull(definition, "definition");
-            checkArgument(!this.runtimeMap.containsKey(definition.getRuntimeId()),
-                    "Runtime ID is already registered: " + definition.getRuntimeId());
+            // checkArgument(!this.runtimeMap.containsKey(definition.getRuntimeId()),
+            //         "Runtime ID is already registered: " + definition.getRuntimeId());
             this.runtimeMap.put(definition.getRuntimeId(), definition);
 
             return this;
@@ -61,8 +61,8 @@ public class SimpleDefinitionRegistry<D extends Definition> implements Definitio
 
         public Builder<D> remove(D definition) {
             checkNotNull(definition, "definition");
-            checkArgument(this.runtimeMap.containsKey(definition.getRuntimeId()),
-                    "Runtime ID is not registered: " + definition.getRuntimeId());
+            // checkArgument(this.runtimeMap.containsKey(definition.getRuntimeId()),
+            //         "Runtime ID is not registered: " + definition.getRuntimeId());
             this.runtimeMap.remove(definition.getRuntimeId());
 
             return this;
