@@ -7,6 +7,7 @@ import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockPacketSerializer;
 import org.cloudburstmc.protocol.bedrock.data.inventory.CraftingType;
 import org.cloudburstmc.protocol.bedrock.packet.CraftingEventPacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,7 +27,7 @@ public class CraftingEventSerializer_v291 implements BedrockPacketSerializer<Cra
     @Override
     public void deserialize(ByteBuf buffer, BedrockCodecHelper helper, CraftingEventPacket packet) {
         packet.setContainerId(buffer.readByte());
-        packet.setType(CraftingType.values()[VarInts.readInt(buffer)]);
+        packet.setType(NullableEnum.get(CraftingType.values(), VarInts.readInt(buffer)));
         packet.setUuid(helper.readUuid(buffer));
 
         helper.readArray(buffer, packet.getInputs(), helper::readItem, 9); // crafting table is the biggest container

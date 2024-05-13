@@ -6,6 +6,7 @@ import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockPacketSerializer;
 import org.cloudburstmc.protocol.bedrock.data.Ability;
 import org.cloudburstmc.protocol.bedrock.packet.RequestAbilityPacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 @NoArgsConstructor
@@ -24,8 +25,8 @@ public class RequestAbilitySerializer_v527 implements BedrockPacketSerializer<Re
 
     @Override
     public void deserialize(ByteBuf buffer, BedrockCodecHelper helper, RequestAbilityPacket packet) {
-        packet.setAbility(ABILITIES[VarInts.readInt(buffer)]);
-        packet.setType(TYPES[buffer.readUnsignedByte()]);
+        packet.setAbility(NullableEnum.get(ABILITIES, VarInts.readInt(buffer)));
+        packet.setType(NullableEnum.get(TYPES, VarInts.readInt(buffer)));
         packet.setBoolValue(buffer.readBoolean());
         packet.setFloatValue(buffer.readFloatLE());
     }

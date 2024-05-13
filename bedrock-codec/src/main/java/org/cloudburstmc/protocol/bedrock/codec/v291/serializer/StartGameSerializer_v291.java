@@ -13,6 +13,7 @@ import org.cloudburstmc.protocol.bedrock.data.GamePublishSetting;
 import org.cloudburstmc.protocol.bedrock.data.GameType;
 import org.cloudburstmc.protocol.bedrock.data.PlayerPermission;
 import org.cloudburstmc.protocol.bedrock.packet.StartGamePacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 import java.util.List;
@@ -139,7 +140,7 @@ public class StartGameSerializer_v291 implements BedrockPacketSerializer<StartGa
         packet.setBonusChestEnabled(buffer.readBoolean());
         packet.setStartingWithMap(buffer.readBoolean());
         packet.setTrustingPlayers(buffer.readBoolean());
-        packet.setDefaultPlayerPermission(PLAYER_PERMISSIONS[VarInts.readInt(buffer)]);
+        packet.setDefaultPlayerPermission(NullableEnum.get(PLAYER_PERMISSIONS, VarInts.readInt(buffer)));
         packet.setXblBroadcastMode(GamePublishSetting.byId(VarInts.readInt(buffer)));
         packet.setServerChunkTickRange(buffer.readIntLE());
         buffer.readBoolean(); // Broadcasting to Platform

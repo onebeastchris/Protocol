@@ -6,6 +6,7 @@ import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockPacketSerializer;
 import org.cloudburstmc.protocol.bedrock.data.PlayerPermission;
 import org.cloudburstmc.protocol.bedrock.packet.RequestPermissionsPacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 @NoArgsConstructor
@@ -23,7 +24,7 @@ public class RequestPermissionsSerializer_v527 implements BedrockPacketSerialize
     @Override
     public void deserialize(ByteBuf buffer, BedrockCodecHelper helper, RequestPermissionsPacket packet) {
         packet.setUniqueEntityId(buffer.readLongLE());
-        packet.setPermissions(VALUES[VarInts.readInt(buffer)]);
+        packet.setPermissions(NullableEnum.get(VALUES, VarInts.readInt(buffer)));
         packet.setCustomPermissions(buffer.readUnsignedShortLE());
     }
 }

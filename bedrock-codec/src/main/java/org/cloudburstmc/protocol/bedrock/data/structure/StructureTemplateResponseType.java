@@ -1,5 +1,7 @@
 package org.cloudburstmc.protocol.bedrock.data.structure;
 
+import org.cloudburstmc.protocol.common.util.NullableEnum;
+
 public enum StructureTemplateResponseType {
     NONE,
     EXPORT,
@@ -12,6 +14,6 @@ public enum StructureTemplateResponseType {
     private static final StructureTemplateResponseType[] VALUES = StructureTemplateResponseType.values();
 
     public static StructureTemplateResponseType from(int id) {
-        return VALUES[id];
+        return NullableEnum.get(VALUES, id);
     }
 }

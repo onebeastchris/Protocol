@@ -9,6 +9,7 @@ import org.cloudburstmc.protocol.bedrock.data.HeightMapDataType;
 import org.cloudburstmc.protocol.bedrock.data.SubChunkData;
 import org.cloudburstmc.protocol.bedrock.data.SubChunkRequestResult;
 import org.cloudburstmc.protocol.bedrock.packet.SubChunkPacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -50,7 +51,7 @@ public class SubChunkSerializer_v475 extends SubChunkSerializer_v471 {
         SubChunkData subChunk = new SubChunkData();
         subChunk.setPosition(helper.readVector3i(buffer));
         subChunk.setData(helper.readByteBuf(buffer));
-        subChunk.setResult(SubChunkRequestResult.values()[VarInts.readInt(buffer)]);
+        subChunk.setResult(NullableEnum.get(SubChunkRequestResult.values(), VarInts.readInt(buffer)));
         subChunk.setHeightMapType(HeightMapDataType.values()[buffer.readByte()]);
 
         if (subChunk.getHeightMapType() == HeightMapDataType.HAS_DATA) {

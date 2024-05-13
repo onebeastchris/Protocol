@@ -1,5 +1,7 @@
 package org.cloudburstmc.protocol.bedrock.data.structure;
 
+import org.cloudburstmc.protocol.common.util.NullableEnum;
+
 public enum StructureTemplateRequestOperation {
     NONE,
     EXPORT_FROM_SAVED_MODE,
@@ -13,6 +15,6 @@ public enum StructureTemplateRequestOperation {
     private static final StructureTemplateRequestOperation[] VALUES = StructureTemplateRequestOperation.values();
 
     public static StructureTemplateRequestOperation from(int id) {
-        return VALUES[id];
+        return NullableEnum.get(VALUES, id);
     }
 }

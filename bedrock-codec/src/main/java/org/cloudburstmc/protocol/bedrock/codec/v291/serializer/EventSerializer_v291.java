@@ -5,6 +5,7 @@ import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockPacketSerializer;
 import org.cloudburstmc.protocol.bedrock.data.event.*;
 import org.cloudburstmc.protocol.bedrock.packet.EventPacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.Preconditions;
 import org.cloudburstmc.protocol.common.util.TriConsumer;
 import org.cloudburstmc.protocol.common.util.VarInts;
@@ -196,7 +197,7 @@ public class EventSerializer_v291 implements BedrockPacketSerializer<EventPacket
     }
 
     protected AgentCommandEventData readAgentCommand(ByteBuf buffer, BedrockCodecHelper helper) {
-        AgentResult result = AgentResult.values()[VarInts.readInt(buffer)];
+        AgentResult result = NullableEnum.get(AgentResult.values(), VarInts.readInt(buffer));
         int dataValue = VarInts.readInt(buffer);
         String command = helper.readString(buffer);
         String dataKey = helper.readString(buffer);

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockPacketSerializer;
 import org.cloudburstmc.protocol.bedrock.packet.SetTitlePacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,7 +25,7 @@ public class SetTitleSerializer_v291 implements BedrockPacketSerializer<SetTitle
 
     @Override
     public void deserialize(ByteBuf buffer, BedrockCodecHelper helper, SetTitlePacket packet) {
-        packet.setType(SetTitlePacket.Type.values()[VarInts.readInt(buffer)]);
+        packet.setType(NullableEnum.get(SetTitlePacket.Type.values(), VarInts.readInt(buffer)));
         packet.setText(helper.readString(buffer));
         packet.setFadeInTime(VarInts.readInt(buffer));
         packet.setStayTime(VarInts.readInt(buffer));

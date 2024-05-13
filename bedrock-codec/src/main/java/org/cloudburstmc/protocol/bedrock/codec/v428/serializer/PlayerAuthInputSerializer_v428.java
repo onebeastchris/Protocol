@@ -11,6 +11,7 @@ import org.cloudburstmc.protocol.bedrock.data.PlayerBlockActionData;
 import org.cloudburstmc.protocol.bedrock.data.inventory.transaction.ItemUseTransaction;
 import org.cloudburstmc.protocol.bedrock.data.inventory.transaction.LegacySetItemSlotData;
 import org.cloudburstmc.protocol.bedrock.packet.PlayerAuthInputPacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
@@ -112,7 +113,7 @@ public class PlayerAuthInputSerializer_v428 extends PlayerAuthInputSerializer_v4
 
     protected PlayerBlockActionData readPlayerBlockActionData(ByteBuf buffer, BedrockCodecHelper helper) {
         PlayerBlockActionData actionData = new PlayerBlockActionData();
-        actionData.setAction(PlayerActionType.values()[VarInts.readInt(buffer)]);
+        actionData.setAction(NullableEnum.get(PlayerActionType.values(), VarInts.readInt(buffer)));
         switch (actionData.getAction()) {
             case START_BREAK:
             case ABORT_BREAK:

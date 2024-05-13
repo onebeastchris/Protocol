@@ -1,5 +1,7 @@
 package org.cloudburstmc.protocol.bedrock.data;
 
+import org.cloudburstmc.protocol.common.util.NullableEnum;
+
 public enum GamePublishSetting {
     NO_MULTI_PLAY,
     INVITE_ONLY,
@@ -8,6 +10,6 @@ public enum GamePublishSetting {
     PUBLIC;
 
     public static GamePublishSetting byId(int id) {
-        return values()[id];
+        return NullableEnum.get(values(), id);
     }
 }

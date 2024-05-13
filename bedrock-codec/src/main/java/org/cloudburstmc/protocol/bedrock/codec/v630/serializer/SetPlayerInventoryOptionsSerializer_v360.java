@@ -7,6 +7,7 @@ import org.cloudburstmc.protocol.bedrock.data.inventory.InventoryLayout;
 import org.cloudburstmc.protocol.bedrock.data.inventory.InventoryTabLeft;
 import org.cloudburstmc.protocol.bedrock.data.inventory.InventoryTabRight;
 import org.cloudburstmc.protocol.bedrock.packet.SetPlayerInventoryOptionsPacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 public class SetPlayerInventoryOptionsSerializer_v360 implements BedrockPacketSerializer<SetPlayerInventoryOptionsPacket> {
@@ -22,10 +23,10 @@ public class SetPlayerInventoryOptionsSerializer_v360 implements BedrockPacketSe
 
     @Override
     public void deserialize(ByteBuf buffer, BedrockCodecHelper helper, SetPlayerInventoryOptionsPacket packet) {
-        packet.setLeftTab(InventoryTabLeft.VALUES[VarInts.readInt(buffer)]);
-        packet.setRightTab(InventoryTabRight.VALUES[VarInts.readInt(buffer)]);
+        packet.setLeftTab(NullableEnum.get(InventoryTabLeft.VALUES, VarInts.readInt(buffer)));
+        packet.setRightTab(NullableEnum.get(InventoryTabRight.VALUES, VarInts.readInt(buffer)));
         packet.setFiltering(buffer.readBoolean());
-        packet.setLayout(InventoryLayout.VALUES[VarInts.readInt(buffer)]);
-        packet.setCraftingLayout(InventoryLayout.VALUES[VarInts.readInt(buffer)]);
+        packet.setLayout(NullableEnum.get(InventoryLayout.VALUES, VarInts.readInt(buffer)));
+        packet.setCraftingLayout(NullableEnum.get(InventoryLayout.VALUES, VarInts.readInt(buffer)));
     }
 }

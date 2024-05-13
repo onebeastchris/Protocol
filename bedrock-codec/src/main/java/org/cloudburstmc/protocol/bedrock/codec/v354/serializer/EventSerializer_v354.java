@@ -5,6 +5,7 @@ import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.v340.serializer.EventSerializer_v340;
 import org.cloudburstmc.protocol.bedrock.data.BlockInteractionType;
 import org.cloudburstmc.protocol.bedrock.data.event.*;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 public class EventSerializer_v354 extends EventSerializer_v340 {
@@ -21,7 +22,7 @@ public class EventSerializer_v354 extends EventSerializer_v340 {
     }
 
     protected CauldronInteractEventData readCauldronInteract(ByteBuf buffer, BedrockCodecHelper helper) {
-        BlockInteractionType type = BlockInteractionType.values()[VarInts.readInt(buffer)];
+        BlockInteractionType type = NullableEnum.get(BlockInteractionType.values(), VarInts.readInt(buffer));
         int itemId = VarInts.readInt(buffer);
         return new CauldronInteractEventData(type, itemId);
     }
@@ -33,7 +34,7 @@ public class EventSerializer_v354 extends EventSerializer_v340 {
     }
 
     protected ComposterInteractEventData readComposterInteract(ByteBuf buffer, BedrockCodecHelper helper) {
-        BlockInteractionType type = BlockInteractionType.values()[VarInts.readInt(buffer)];
+        BlockInteractionType type = NullableEnum.get(BlockInteractionType.values(), VarInts.readInt(buffer));
         int itemId = VarInts.readInt(buffer);
         return new ComposterInteractEventData(type, itemId);
     }
