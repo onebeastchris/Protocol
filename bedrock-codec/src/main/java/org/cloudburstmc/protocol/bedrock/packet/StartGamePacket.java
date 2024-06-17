@@ -1,7 +1,5 @@
 package org.cloudburstmc.protocol.bedrock.packet;
 
-import io.netty.util.internal.logging.InternalLogger;
-import io.netty.util.internal.logging.InternalLoggerFactory;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,8 +21,6 @@ import java.util.UUID;
 @EqualsAndHashCode(doNotUseGetters = true)
 @ToString(doNotUseGetters = true, exclude = {"itemDefinitions", "blockPalette"})
 public class StartGamePacket implements BedrockPacket {
-    private static final InternalLogger log = InternalLoggerFactory.getInstance(StartGamePacket.class);
-
     private final List<GameRuleData<?>> gamerules = new ObjectArrayList<>();
     private long uniqueEntityId;
     private long runtimeEntityId;
@@ -174,6 +170,18 @@ public class StartGamePacket implements BedrockPacket {
      * @since v671
      */
     private boolean hardcore;
+    /**
+     * @since v685
+     */
+    private String serverId;
+    /**
+     * @since v685
+     */
+    private String worldId;
+    /**
+     * @since v685
+     */
+    private String scenarioId;
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {
