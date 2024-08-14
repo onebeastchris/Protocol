@@ -5,6 +5,7 @@ import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockPacketSerializer;
 import org.cloudburstmc.protocol.bedrock.data.ServerboundLoadingScreenPacketType;
 import org.cloudburstmc.protocol.bedrock.packet.ServerboundLoadingScreenPacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 public class ServerboundLoadingScreenSerializer_v712 implements BedrockPacketSerializer<ServerboundLoadingScreenPacket> {
@@ -18,7 +19,7 @@ public class ServerboundLoadingScreenSerializer_v712 implements BedrockPacketSer
 
     @Override
     public void deserialize(ByteBuf buffer, BedrockCodecHelper helper, ServerboundLoadingScreenPacket packet) {
-        packet.setType(ServerboundLoadingScreenPacketType.values()[VarInts.readInt(buffer)]);
+        packet.setType(NullableEnum.get(ServerboundLoadingScreenPacketType.values(), VarInts.readInt(buffer)));
         packet.setLoadingScreenId(helper.readOptional(buffer, null, ByteBuf::readIntLE));
     }
 }

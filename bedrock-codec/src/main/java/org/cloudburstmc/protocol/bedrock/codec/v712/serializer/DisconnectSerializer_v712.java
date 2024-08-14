@@ -5,6 +5,7 @@ import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockPacketSerializer;
 import org.cloudburstmc.protocol.bedrock.data.DisconnectFailReason;
 import org.cloudburstmc.protocol.bedrock.packet.DisconnectPacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 public class DisconnectSerializer_v712 implements BedrockPacketSerializer<DisconnectPacket> {
@@ -22,7 +23,7 @@ public class DisconnectSerializer_v712 implements BedrockPacketSerializer<Discon
 
     @Override
     public void deserialize(ByteBuf buffer, BedrockCodecHelper helper, DisconnectPacket packet) {
-        packet.setReason(DisconnectFailReason.values()[VarInts.readInt(buffer)]);
+        packet.setReason(NullableEnum.get(DisconnectFailReason.values(), VarInts.readInt(buffer)));
         packet.setMessageSkipped(buffer.readBoolean());
         if (!packet.isMessageSkipped()) {
             packet.setKickMessage(helper.readString(buffer));

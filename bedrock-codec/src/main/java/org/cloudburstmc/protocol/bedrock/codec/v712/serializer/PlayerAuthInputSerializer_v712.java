@@ -5,6 +5,7 @@ import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.v662.serializer.PlayerAuthInputSerializer_v662;
 import org.cloudburstmc.protocol.bedrock.data.inventory.transaction.ItemUseTransaction;
 import org.cloudburstmc.protocol.bedrock.data.inventory.transaction.LegacySetItemSlotData;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 public class PlayerAuthInputSerializer_v712 extends PlayerAuthInputSerializer_v662 {
@@ -52,7 +53,7 @@ public class PlayerAuthInputSerializer_v712 extends PlayerAuthInputSerializer_v6
 
         boolean hasNetIds = helper.readInventoryActions(buffer, itemTransaction.getActions());
         itemTransaction.setActionType(VarInts.readUnsignedInt(buffer));
-        itemTransaction.setTriggerType(ItemUseTransaction.TriggerType.values()[VarInts.readUnsignedInt(buffer)]);
+        itemTransaction.setTriggerType(NullableEnum.get(ItemUseTransaction.TriggerType.values(), VarInts.readUnsignedInt(buffer)));
         itemTransaction.setBlockPosition(helper.readBlockPosition(buffer));
         itemTransaction.setBlockFace(VarInts.readInt(buffer));
         itemTransaction.setHotbarSlot(VarInts.readInt(buffer));
@@ -60,7 +61,7 @@ public class PlayerAuthInputSerializer_v712 extends PlayerAuthInputSerializer_v6
         itemTransaction.setPlayerPosition(helper.readVector3f(buffer));
         itemTransaction.setClickPosition(helper.readVector3f(buffer));
         itemTransaction.setBlockDefinition(helper.getBlockDefinitions().getDefinition(VarInts.readUnsignedInt(buffer)));
-        itemTransaction.setClientInteractPrediction(ItemUseTransaction.PredictedResult.values()[VarInts.readUnsignedInt(buffer)]);
+        itemTransaction.setClientInteractPrediction(NullableEnum.get(ItemUseTransaction.PredictedResult.values(), VarInts.readUnsignedInt(buffer)));
         return itemTransaction;
     }
 }

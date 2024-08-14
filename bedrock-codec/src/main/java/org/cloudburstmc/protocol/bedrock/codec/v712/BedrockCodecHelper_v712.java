@@ -16,6 +16,7 @@ import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.response.ItemS
 import org.cloudburstmc.protocol.bedrock.data.inventory.itemstack.response.ItemStackResponseSlot;
 import org.cloudburstmc.protocol.bedrock.data.inventory.transaction.ItemUseTransaction;
 import org.cloudburstmc.protocol.bedrock.packet.InventoryTransactionPacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.TypeMap;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
@@ -138,7 +139,7 @@ public class BedrockCodecHelper_v712 extends BedrockCodecHelper_v575 {
     @Override
     public void readItemUse(ByteBuf buffer, InventoryTransactionPacket packet) {
         packet.setActionType(VarInts.readUnsignedInt(buffer));
-        packet.setTriggerType(ItemUseTransaction.TriggerType.values()[VarInts.readUnsignedInt(buffer)]);
+        packet.setTriggerType(NullableEnum.get(ItemUseTransaction.TriggerType.values(), VarInts.readUnsignedInt(buffer)));
         packet.setBlockPosition(this.readBlockPosition(buffer));
         packet.setBlockFace(VarInts.readInt(buffer));
         packet.setHotbarSlot(VarInts.readInt(buffer));
