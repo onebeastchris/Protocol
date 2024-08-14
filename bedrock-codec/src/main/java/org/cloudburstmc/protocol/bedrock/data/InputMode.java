@@ -1,5 +1,7 @@
 package org.cloudburstmc.protocol.bedrock.data;
 
+import org.cloudburstmc.protocol.common.util.NullableEnum;
+
 public enum InputMode {
     UNDEFINED,
     MOUSE,
@@ -10,6 +12,6 @@ public enum InputMode {
     private static final InputMode[] VALUES = values();
 
     public static InputMode from(int id) {
-        return VALUES[id];
+        return NullableEnum.get(VALUES, id);
     }
 }

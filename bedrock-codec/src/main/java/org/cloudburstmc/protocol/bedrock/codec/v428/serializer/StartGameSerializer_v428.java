@@ -10,6 +10,7 @@ import org.cloudburstmc.protocol.bedrock.data.BlockPropertyData;
 import org.cloudburstmc.protocol.bedrock.data.GameType;
 import org.cloudburstmc.protocol.bedrock.data.definitions.SimpleItemDefinition;
 import org.cloudburstmc.protocol.bedrock.packet.StartGamePacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 @SuppressWarnings("DuplicatedCode")
@@ -87,13 +88,13 @@ public class StartGameSerializer_v428 extends StartGameSerializer_v419 {
     }
 
     protected void writeSyncedPlayerMovementSettings(ByteBuf buffer, StartGamePacket packet) {
-        VarInts.writeInt(buffer, packet.getAuthoritativeMovementMode().ordinal());
+        VarInts.writeOrdinalInt(buffer, packet.getAuthoritativeMovementMode());
         VarInts.writeInt(buffer, packet.getRewindHistorySize());
         buffer.writeBoolean(packet.isServerAuthoritativeBlockBreaking());
     }
 
     protected void readSyncedPlayerMovementSettings(ByteBuf buffer, StartGamePacket packet) {
-        packet.setAuthoritativeMovementMode(MOVEMENT_MODES[VarInts.readInt(buffer)]);
+        packet.setAuthoritativeMovementMode(NullableEnum.get(MOVEMENT_MODES, VarInts.readInt(buffer)));
         packet.setRewindHistorySize(VarInts.readInt(buffer));
         packet.setServerAuthoritativeBlockBreaking(buffer.readBoolean());
     }

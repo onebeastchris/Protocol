@@ -8,6 +8,7 @@ import org.cloudburstmc.protocol.bedrock.codec.v291.serializer.StartGameSerializ
 import org.cloudburstmc.protocol.bedrock.data.GamePublishSetting;
 import org.cloudburstmc.protocol.bedrock.data.GameType;
 import org.cloudburstmc.protocol.bedrock.packet.StartGamePacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -38,7 +39,7 @@ public class StartGameSerializer_v332 extends StartGameSerializer_v291 { // No n
         helper.writeArray(buffer, packet.getGamerules(), helper::writeGameRule);
         buffer.writeBoolean(packet.isBonusChestEnabled());
         buffer.writeBoolean(packet.isStartingWithMap());
-        VarInts.writeInt(buffer, packet.getDefaultPlayerPermission().ordinal());
+        VarInts.writeOrdinalInt(buffer, packet.getDefaultPlayerPermission());
         buffer.writeIntLE(packet.getServerChunkTickRange());
         buffer.writeBoolean(packet.isBehaviorPackLocked());
         buffer.writeBoolean(packet.isResourcePackLocked());
@@ -53,7 +54,7 @@ public class StartGameSerializer_v332 extends StartGameSerializer_v291 { // No n
         packet.setSeed(readSeed(buffer));
         packet.setDimensionId(VarInts.readInt(buffer));
         packet.setGeneratorId(VarInts.readInt(buffer));
-        packet.setLevelGameType(GameType.values()[VarInts.readInt(buffer)]);
+        packet.setLevelGameType(NullableEnum.get(GameType.values(), VarInts.readInt(buffer)));
         packet.setDifficulty(VarInts.readInt(buffer));
         packet.setDefaultSpawn(helper.readBlockPosition(buffer));
         packet.setAchievementsDisabled(buffer.readBoolean());
@@ -72,7 +73,7 @@ public class StartGameSerializer_v332 extends StartGameSerializer_v291 { // No n
         helper.readArray(buffer, packet.getGamerules(), helper::readGameRule);
         packet.setBonusChestEnabled(buffer.readBoolean());
         packet.setStartingWithMap(buffer.readBoolean());
-        packet.setDefaultPlayerPermission(PLAYER_PERMISSIONS[VarInts.readInt(buffer)]);
+        packet.setDefaultPlayerPermission(NullableEnum.get(PLAYER_PERMISSIONS, VarInts.readInt(buffer)));
         packet.setServerChunkTickRange(buffer.readIntLE());
         packet.setBehaviorPackLocked(buffer.readBoolean());
         packet.setResourcePackLocked(buffer.readBoolean());

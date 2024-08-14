@@ -1,5 +1,7 @@
 package org.cloudburstmc.protocol.bedrock.data.skin;
 
+import org.cloudburstmc.protocol.common.util.NullableEnum;
+
 public enum AnimatedTextureType {
     NONE,
     FACE,
@@ -9,6 +11,6 @@ public enum AnimatedTextureType {
     private static final AnimatedTextureType[] VALUES = values();
 
     public static AnimatedTextureType from(int id) {
-        return VALUES[id];
+        return NullableEnum.get(VALUES, id);
     }
 }

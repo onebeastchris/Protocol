@@ -6,6 +6,7 @@ import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockPacketSerializer;
 import org.cloudburstmc.protocol.bedrock.data.ee.LessonAction;
 import org.cloudburstmc.protocol.bedrock.packet.LessonProgressPacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 @NoArgsConstructor
@@ -22,7 +23,7 @@ public class LessonProgressSerializer_v527 implements BedrockPacketSerializer<Le
 
     @Override
     public void deserialize(ByteBuf buffer, BedrockCodecHelper helper, LessonProgressPacket packet) {
-        packet.setAction(ACTIONS[VarInts.readInt(buffer)]);
+        packet.setAction(NullableEnum.get(ACTIONS, VarInts.readInt(buffer)));
         packet.setScore(VarInts.readInt(buffer));
         packet.setActivityId(helper.readString(buffer));
     }

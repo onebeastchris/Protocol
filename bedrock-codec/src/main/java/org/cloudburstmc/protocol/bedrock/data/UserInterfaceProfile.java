@@ -1,5 +1,7 @@
 package org.cloudburstmc.protocol.bedrock.data;
 
+import org.cloudburstmc.protocol.common.util.NullableEnum;
+
 public enum UserInterfaceProfile {
 
     CLASSIC,
@@ -9,6 +11,6 @@ public enum UserInterfaceProfile {
     private static final UserInterfaceProfile[] VALUES = values();
 
     public static UserInterfaceProfile from(int id) {
-        return VALUES[id];
+        return NullableEnum.get(VALUES, id);
     }
 }

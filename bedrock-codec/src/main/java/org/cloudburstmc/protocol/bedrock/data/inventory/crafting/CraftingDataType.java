@@ -1,5 +1,7 @@
 package org.cloudburstmc.protocol.bedrock.data.inventory.crafting;
 
+import org.cloudburstmc.protocol.common.util.NullableEnum;
+
 public enum CraftingDataType {
     SHAPELESS,
     SHAPED,
@@ -21,9 +23,6 @@ public enum CraftingDataType {
     private static final CraftingDataType[] VALUES = values();
 
     public static CraftingDataType byId(int id) {
-        if (id >= 0 && id < VALUES.length) {
-            return VALUES[id];
-        }
-        throw new UnsupportedOperationException("Unknown CraftingDataType ID: " + id);
+        return NullableEnum.get(VALUES, id);
     }
 }

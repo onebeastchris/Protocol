@@ -1,5 +1,7 @@
 package org.cloudburstmc.protocol.bedrock.data;
 
+import org.cloudburstmc.protocol.common.util.NullableEnum;
+
 public enum GameType {
     SURVIVAL,
     CREATIVE,
@@ -17,6 +19,6 @@ public enum GameType {
     private static final GameType[] VALUES = values();
 
     public static GameType from(int id) {
-        return VALUES[id];
+        return NullableEnum.get(VALUES, id);
     }
 }

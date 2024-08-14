@@ -1,5 +1,7 @@
 package org.cloudburstmc.protocol.bedrock.data.entity;
 
+import org.cloudburstmc.protocol.common.util.NullableEnum;
+
 public enum EntityDamageCause {
     OVERRIDE,
     CONTACT,
@@ -37,6 +39,6 @@ public enum EntityDamageCause {
     private static final EntityDamageCause[] VALUES = EntityDamageCause.values();
 
     public static EntityDamageCause from(int id) {
-        return VALUES[id];
+        return NullableEnum.get(VALUES, id);
     }
 }

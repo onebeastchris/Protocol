@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockPacketSerializer;
 import org.cloudburstmc.protocol.bedrock.packet.NpcDialoguePacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
@@ -27,7 +28,7 @@ public class NpcDialogueSerializer_v448 implements BedrockPacketSerializer<NpcDi
     @Override
     public void deserialize(ByteBuf buffer, BedrockCodecHelper helper, NpcDialoguePacket packet) {
         packet.setUniqueEntityId(buffer.readLongLE());
-        packet.setAction(VALUES[VarInts.readInt(buffer)]);
+        packet.setAction(NullableEnum.get(VALUES, VarInts.readInt(buffer)));
         packet.setDialogue(helper.readString(buffer));
         packet.setSceneName(helper.readString(buffer));
         packet.setNpcName(helper.readString(buffer));

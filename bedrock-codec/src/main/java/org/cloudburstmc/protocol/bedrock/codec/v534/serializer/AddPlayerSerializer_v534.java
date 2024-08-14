@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.v503.serializer.AddPlayerSerializer_v503;
 import org.cloudburstmc.protocol.bedrock.packet.AddPlayerPacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -40,7 +41,7 @@ public class AddPlayerSerializer_v534 extends AddPlayerSerializer_v503 {
         packet.setMotion(helper.readVector3f(buffer));
         packet.setRotation(helper.readVector3f(buffer));
         packet.setHand(helper.readItem(buffer));
-        packet.setGameType(VALUES[VarInts.readInt(buffer)]);
+        packet.setGameType(NullableEnum.get(VALUES, VarInts.readInt(buffer)));
         helper.readEntityData(buffer, packet.getMetadata());
         helper.readPlayerAbilities(buffer, packet);
         helper.readArray(buffer, packet.getEntityLinks(), helper::readEntityLink);

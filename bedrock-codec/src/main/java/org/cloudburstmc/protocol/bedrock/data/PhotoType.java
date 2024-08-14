@@ -1,5 +1,7 @@
 package org.cloudburstmc.protocol.bedrock.data;
 
+import org.cloudburstmc.protocol.common.util.NullableEnum;
+
 public enum PhotoType {
     PORTFOLIO,
     PHOTO_ITEM,
@@ -8,6 +10,6 @@ public enum PhotoType {
     private static final PhotoType[] VALUES = values();
 
     public static PhotoType from(int id) {
-        return id >= 0 && id < VALUES.length ? VALUES[id] : null;
+        return NullableEnum.get(VALUES, id);
     }
 }

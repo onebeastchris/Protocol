@@ -6,6 +6,7 @@ import org.cloudburstmc.protocol.bedrock.codec.v291.serializer.AdventureSettings
 import org.cloudburstmc.protocol.bedrock.codec.v388.serializer.AddPlayerSerializer_v388;
 import org.cloudburstmc.protocol.bedrock.data.GameType;
 import org.cloudburstmc.protocol.bedrock.packet.AddPlayerPacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 public class AddPlayerSerializer_v503 extends AddPlayerSerializer_v388 {
@@ -42,7 +43,7 @@ public class AddPlayerSerializer_v503 extends AddPlayerSerializer_v388 {
         packet.setMotion(helper.readVector3f(buffer));
         packet.setRotation(helper.readVector3f(buffer));
         packet.setHand(helper.readItem(buffer));
-        packet.setGameType(VALUES[VarInts.readInt(buffer)]);
+        packet.setGameType(NullableEnum.get(VALUES, VarInts.readInt(buffer)));
         helper.readEntityData(buffer, packet.getMetadata());
         AdventureSettingsSerializer_v291.INSTANCE.deserialize(buffer, helper, packet.getAdventureSettings());
         helper.readArray(buffer, packet.getEntityLinks(), helper::readEntityLink);

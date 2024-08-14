@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockPacketSerializer;
 import org.cloudburstmc.protocol.bedrock.packet.ShowCreditsPacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,6 +23,6 @@ public class ShowCreditsSerializer_v291 implements BedrockPacketSerializer<ShowC
     @Override
     public void deserialize(ByteBuf buffer, BedrockCodecHelper helper, ShowCreditsPacket packet) {
         packet.setRuntimeEntityId(VarInts.readUnsignedLong(buffer));
-        packet.setStatus(ShowCreditsPacket.Status.values()[VarInts.readInt(buffer)]);
+        packet.setStatus(NullableEnum.get(ShowCreditsPacket.Status.values(), VarInts.readInt(buffer)));
     }
 }

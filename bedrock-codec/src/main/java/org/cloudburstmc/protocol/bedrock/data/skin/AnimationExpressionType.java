@@ -1,5 +1,7 @@
 package org.cloudburstmc.protocol.bedrock.data.skin;
 
+import org.cloudburstmc.protocol.common.util.NullableEnum;
+
 public enum AnimationExpressionType {
     LINEAR,
     BLINKING;
@@ -7,6 +9,6 @@ public enum AnimationExpressionType {
     private static final AnimationExpressionType[] VALUES = values();
 
     public static AnimationExpressionType from(int id) {
-        return VALUES[id];
+        return NullableEnum.get(VALUES, id);
     }
 }

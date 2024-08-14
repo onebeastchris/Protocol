@@ -2,6 +2,7 @@ package org.cloudburstmc.protocol.bedrock.data.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Value;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 
 @Value
 @AllArgsConstructor
@@ -34,10 +35,7 @@ public class EntityLinkData {
         private static final Type[] VALUES = values();
 
         public static Type byId(int id) {
-            if (id >= 0 && id < VALUES.length) {
-                return VALUES[id];
-            }
-            throw new UnsupportedOperationException("Unknown EntityLinkData.Type ID: " + id);
+            return NullableEnum.get(VALUES, id);
         }
     }
 }

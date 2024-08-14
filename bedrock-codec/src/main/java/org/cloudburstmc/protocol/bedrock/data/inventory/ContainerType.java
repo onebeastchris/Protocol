@@ -68,7 +68,6 @@ public enum ContainerType {
 
     public static ContainerType from(int id) {
         ContainerType type = VALUES[id + 9];
-        if (type == null) throw new IllegalArgumentException("Unknown ContainerType: " + id);
         return type;
     }
 }
