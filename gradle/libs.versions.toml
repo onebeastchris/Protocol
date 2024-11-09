@@ -6,7 +6,7 @@ netty = "4.1.101.Final"
 checker-qual = { group = "org.checkerframework", name = "checker-qual", version.ref = "checkerframework" }
 checker = { group = "org.checkerframework", name = "checker", version.ref = "checkerframework" }
 
-fastutil-bom = { group = "org.cloudburstmc.fastutil", name = "bom", version = "8.5.13" }
+fastutil-bom = { group = "org.cloudburstmc.fastutil", name = "bom", version = "8.5.15" }
 fastutil-long-common = { group = "org.cloudburstmc.fastutil.commons", name = "long-common" }
 fastutil-long-object-maps = { group = "org.cloudburstmc.fastutil.maps", name = "long-object-maps" }
 fastutil-int-object-maps = { group = "org.cloudburstmc.fastutil.maps", name = "int-object-maps" }
