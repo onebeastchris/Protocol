@@ -750,6 +750,54 @@ public enum SoundEvent {
      * @since v729
      */
     BUNDLE_INSERT_FAILED,
+    /**
+     * @since v765
+     */
+    IMITATE_CREAKING,
+    /**
+     * @since v765
+     */
+    SPONGE_ABSORB,
+    /**
+     * @since v765
+     */
+    BLOCK_CREAKING_HEART_TRAIL,
+    /**
+     * @since v765
+     */
+    CREAKING_HEART_SPAWN,
+    /**
+     * @since v765
+     */
+    ACTIVATE,
+    /**
+     * @since v765
+     */
+    DEACTIVATE,
+    /**
+     * @since v765
+     */
+    FREEZE,
+    /**
+     * @since v765
+     */
+    UNFREEZE,
+    /**
+     * @since v765
+     */
+    OPEN,
+    /**
+     * @since v765
+     */
+    OPEN_LONG,
+    /**
+     * @since v765
+     */
+    CLOSE,
+    /**
+     * @since v765
+     */
+    CLOSE_LONG,
 
     UNDEFINED
 }
