@@ -7,14 +7,8 @@ import org.cloudburstmc.protocol.bedrock.codec.v313.serializer.LevelSoundEvent2S
 import org.cloudburstmc.protocol.bedrock.codec.v332.serializer.LevelSoundEventSerializer_v332;
 import org.cloudburstmc.protocol.bedrock.codec.v361.serializer.LevelEventGenericSerializer_v361;
 import org.cloudburstmc.protocol.bedrock.codec.v748.Bedrock_v748;
-import org.cloudburstmc.protocol.bedrock.codec.v765.serializer.CameraAimAssistPresetsSerializer_v765;
-import org.cloudburstmc.protocol.bedrock.codec.v765.serializer.CameraAimAssistSerializer_v765;
-import org.cloudburstmc.protocol.bedrock.codec.v765.serializer.PlayerAuthInputSerializer_v765;
-import org.cloudburstmc.protocol.bedrock.codec.v765.serializer.ResourcePacksInfoSerializer_v765;
-import org.cloudburstmc.protocol.bedrock.data.LevelEvent;
-import org.cloudburstmc.protocol.bedrock.data.LevelEventType;
-import org.cloudburstmc.protocol.bedrock.data.PacketRecipient;
-import org.cloudburstmc.protocol.bedrock.data.SoundEvent;
+import org.cloudburstmc.protocol.bedrock.codec.v765.serializer.*;
+import org.cloudburstmc.protocol.bedrock.data.*;
 import org.cloudburstmc.protocol.bedrock.packet.*;
 import org.cloudburstmc.protocol.common.util.TypeMap;
 
@@ -37,7 +31,15 @@ public class Bedrock_v765 extends Bedrock_v748 {
             .insert(546, SoundEvent.UNDEFINED)
             .build();
 
+    protected static final TypeMap<ParticleType> PARTICLE_TYPES = Bedrock_v748.PARTICLE_TYPES.toBuilder()
+            .insert(94, ParticleType.CREAKING_CRUMBLE)
+            .insert(95, ParticleType.PALE_OAK_LEAVES)
+            .insert(96, ParticleType.EYEBLOSSOM_OPEN)
+            .insert(97, ParticleType.EYEBLOSSOM_CLOSE)
+            .build();
+
     protected static final TypeMap<LevelEventType> LEVEL_EVENTS = Bedrock_v748.LEVEL_EVENTS.toBuilder()
+            .insert(LEVEL_EVENT_PARTICLE_TYPE, PARTICLE_TYPES)
             .insert(9816, LevelEvent.PARTICLE_CREAKING_HEART_TRIAL)
             .build();
 
@@ -54,6 +56,7 @@ public class Bedrock_v765 extends Bedrock_v748 {
             .updateSerializer(CameraAimAssistPacket.class, CameraAimAssistSerializer_v765.INSTANCE)
             .updateSerializer(ResourcePacksInfoPacket.class, ResourcePacksInfoSerializer_v765.INSTANCE)
             .updateSerializer(PlayerAuthInputPacket.class, PlayerAuthInputSerializer_v765.INSTANCE)
+            .updateSerializer(CameraPresetsPacket.class, CameraPresetsSerializer_v765.INSTANCE)
             .registerPacket(CameraAimAssistPresetsPacket::new, CameraAimAssistPresetsSerializer_v765.INSTANCE, 320, PacketRecipient.CLIENT)
             .build();
 }

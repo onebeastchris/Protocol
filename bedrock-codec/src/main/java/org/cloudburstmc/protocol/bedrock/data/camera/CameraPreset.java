@@ -62,4 +62,12 @@ public class CameraPreset {
      */
     @Builder.Default
     private OptionalBoolean alignTargetAndCameraForward = OptionalBoolean.empty();
+    /**
+     * @since v765
+     */
+    private Float blockListeningRadius;
+    /**
+     * @since v765
+     */
+    private CameraAimAssistPreset aimAssistPreset;
 }

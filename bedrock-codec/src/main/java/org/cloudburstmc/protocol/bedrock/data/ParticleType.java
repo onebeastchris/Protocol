@@ -122,4 +122,20 @@ public enum ParticleType implements LevelEventType {
      * @since 685
      */
     OMINOUS_ITEM_SPAWNER,
+    /**
+     * @since 765
+     */
+    CREAKING_CRUMBLE,
+    /**
+     * @since 765
+     */
+    PALE_OAK_LEAVES,
+    /**
+     * @since 765
+     */
+    EYEBLOSSOM_OPEN,
+    /**
+     * @since 765
+     */
+    EYEBLOSSOM_CLOSE,
 }

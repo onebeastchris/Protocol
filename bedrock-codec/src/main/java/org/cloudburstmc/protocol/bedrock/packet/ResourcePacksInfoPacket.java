@@ -48,7 +48,7 @@ public class ResourcePacksInfoPacket implements BedrockPacket {
     @Data
     @AllArgsConstructor
     public static class Entry {
-        private String packId;
+        private UUID packId;
         private String packVersion;
         private long packSize;
         private String contentKey;

@@ -169,10 +169,14 @@ public class VarInts {
         }
     }
 
-    public static BigInteger readUnsignedBigVarInt(ByteBuf buffer) {
+    public static BigInteger readUnsignedBigVarInt(ByteBuf buffer, int maxBits) {
         BigInteger value = BigInteger.ZERO;
         int shift = 0;
         while (true) {
+            if (shift >= maxBits) {
+                throw new ArithmeticException("VarInt was too large");
+            }
+
             byte b = buffer.readByte();
             value = value.or(BigInteger.valueOf(b & 0x7F).shiftLeft(shift));
             if ((b & 0x80) == 0) {
