@@ -1,6 +1,6 @@
 dependencies {
     api(projects.bedrockCodec)
-    api(libs.netty.transport.raknet)
+    api("dev.kastle.netty:netty-transport-raknet:1.1.0")
     api(libs.snappy)
 }
 
