@@ -124,5 +124,33 @@ public enum PlayerAuthInputData {
     /**
      * @since v748
      */
-    STOP_SPIN_ATTACK
+    STOP_SPIN_ATTACK,
+    /**
+     * @since v766
+     */
+    HOTBAR_ONLY_TOUCH,
+    /**
+     * @since v766
+     */
+    JUMP_RELEASED_RAW,
+    /**
+     * @since v766
+     */
+    JUMP_PRESSED_RAW,
+    /**
+     * @since v766
+     */
+    JUMP_CURRENT_RAW,
+    /**
+     * @since v766
+     */
+    SNEAK_RELEASED_RAW,
+    /**
+     * @since v766
+     */
+    SNEAK_PRESSED_RAW,
+    /**
+     * @since v766
+     */
+    SNEAK_CURRENT_RAW,
 }

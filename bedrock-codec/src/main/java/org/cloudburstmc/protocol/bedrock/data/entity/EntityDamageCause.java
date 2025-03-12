@@ -37,6 +37,7 @@ public enum EntityDamageCause {
     SOUL_CAMPFIRE,
     /**
      * @since v729
+     * @deprecated since v776
      */
     MACE_SMASH;
 

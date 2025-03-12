@@ -1,6 +1,7 @@
 package org.cloudburstmc.protocol.bedrock.codec;
 
 import io.netty.buffer.ByteBuf;
+import it.unimi.dsi.fastutil.ints.Int2ObjectFunction;
 import org.cloudburstmc.math.vector.Vector2f;
 import org.cloudburstmc.math.vector.Vector3f;
 import org.cloudburstmc.math.vector.Vector3i;
@@ -33,6 +34,7 @@ import org.cloudburstmc.protocol.common.util.VarInts;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.*;
 
@@ -243,4 +245,8 @@ public interface BedrockCodecHelper {
     void writeFullContainerName(ByteBuf buffer, FullContainerName containerName);
 
     FullContainerName readFullContainerName(ByteBuf buffer);
+
+    <T extends Enum<?>> void writeLargeVarIntFlags(ByteBuf buffer, Set<T> flags, Class<T> clazz);
+
+    <T extends Enum<?>> void readLargeVarIntFlags(ByteBuf buffer, Set<T> flags, Class<T> clazz);
 }

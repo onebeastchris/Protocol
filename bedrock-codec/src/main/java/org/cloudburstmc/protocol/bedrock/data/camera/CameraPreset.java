@@ -28,6 +28,14 @@ public class CameraPreset {
      * @since v712
      */
     private Float radius;
+    /**
+     * @since v776
+     */
+    private Float minYawLimit;
+    /**
+     * @since v776
+     */
+    private Float maxYawLimit;
     private CameraAudioListener listener;
     @Builder.Default
     private OptionalBoolean playEffect = OptionalBoolean.empty();
@@ -62,4 +70,12 @@ public class CameraPreset {
      */
     @Builder.Default
     private OptionalBoolean alignTargetAndCameraForward = OptionalBoolean.empty();
+    /**
+     * @since v766
+     */
+    private Float blockListeningRadius;
+    /**
+     * @since v766
+     */
+    private CameraAimAssistPreset aimAssistPreset;
 }

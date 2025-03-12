@@ -103,6 +103,9 @@ public class StartGamePacket implements BedrockPacket {
     private int enchantmentSeed;
     private NbtList<NbtMap> blockPalette;
     private final List<BlockPropertyData> blockProperties = new ObjectArrayList<>();
+    /**
+     * @deprecated since v776. Use ItemComponentPacket instead.
+     */
     private List<ItemDefinition> itemDefinitions = new ObjectArrayList<>();
     private String multiplayerCorrelationId;
     /**

@@ -5,6 +5,7 @@ import lombok.*;
 import org.cloudburstmc.protocol.common.PacketSignal;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(doNotUseGetters = true)
@@ -26,6 +27,14 @@ public class ResourcePacksInfoPacket implements BedrockPacket {
      * @deprecated since v729
      */
     private boolean forcingServerPacksEnabled;
+    /**
+     * @since v766
+     */
+    private UUID worldTemplateId;
+    /**
+     * @since v766
+     */
+    private String worldTemplateVersion;
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {
@@ -39,7 +48,7 @@ public class ResourcePacksInfoPacket implements BedrockPacket {
     @Data
     @AllArgsConstructor
     public static class Entry {
-        private String packId;
+        private UUID packId;
         private String packVersion;
         private long packSize;
         private String contentKey;

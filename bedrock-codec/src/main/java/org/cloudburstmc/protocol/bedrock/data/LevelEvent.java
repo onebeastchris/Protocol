@@ -111,6 +111,11 @@ public enum LevelEvent implements LevelEventType {
     PARTICLE_TRIAL_SPAWNER_DETECTION_CHARGED,
     PARTICLE_TRIAL_SPAWNER_BECOME_CHARGED,
     PARTICLE_SMASH_ATTACK_GROUND_DUST,
+    /**
+     * @since v766
+     * @deprecated since v776
+     */
+    PARTICLE_CREAKING_HEART_TRIAL,
 
     SCULK_CATALYST_BLOOM,
     SCULK_CHARGE,
