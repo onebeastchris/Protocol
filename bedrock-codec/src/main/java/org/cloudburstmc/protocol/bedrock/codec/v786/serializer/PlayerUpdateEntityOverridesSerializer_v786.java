@@ -6,6 +6,7 @@ import io.netty.buffer.ByteBuf;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockPacketSerializer;
 import org.cloudburstmc.protocol.bedrock.packet.PlayerUpdateEntityOverridesPacket;
+import org.cloudburstmc.protocol.common.util.NullableEnum;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,7 +29,7 @@ public class PlayerUpdateEntityOverridesSerializer_v786 implements BedrockPacket
     public void deserialize(ByteBuf buffer, BedrockCodecHelper helper, PlayerUpdateEntityOverridesPacket packet) {
         packet.setEntityUniqueId(VarInts.readLong(buffer));
         packet.setPropertyIndex(VarInts.readUnsignedInt(buffer));
-        packet.setUpdateType(PlayerUpdateEntityOverridesPacket.UpdateType.values()[buffer.readUnsignedByte()]);
+        packet.setUpdateType(NullableEnum.get(PlayerUpdateEntityOverridesPacket.UpdateType.values(), buffer.readUnsignedByte()));
         if (packet.getUpdateType().equals(PlayerUpdateEntityOverridesPacket.UpdateType.SET_INT_OVERRIDE)) {
             packet.setIntValue(buffer.readIntLE());
         } else if (packet.getUpdateType().equals(PlayerUpdateEntityOverridesPacket.UpdateType.SET_FLOAT_OVERRIDE)) {
