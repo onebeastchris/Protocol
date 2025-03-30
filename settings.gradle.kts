@@ -24,3 +24,5 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "protocol"
 
 include("bedrock-codec", "bedrock-connection", "common")
+
+includeBuild("../network")
