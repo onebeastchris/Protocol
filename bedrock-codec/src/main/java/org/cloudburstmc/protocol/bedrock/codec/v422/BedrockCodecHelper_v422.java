@@ -77,7 +77,8 @@ public class BedrockCodecHelper_v422 extends BedrockCodecHelper_v419 {
                 buffer.readUnsignedByte(),
                 VarInts.readInt(buffer),
                 this.readString(buffer),
-                0);
+                0,
+                "");
     }
 
     @Override

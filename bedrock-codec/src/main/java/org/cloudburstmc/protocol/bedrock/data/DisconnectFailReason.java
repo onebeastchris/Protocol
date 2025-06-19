@@ -124,5 +124,21 @@ public enum DisconnectFailReason {
     /**
      * @since v729
      */
-    DEEP_LINK_TRYING_TO_OPEN_DEMO_WORLD_WHILE_SIGNED_IN
+    DEEP_LINK_TRYING_TO_OPEN_DEMO_WORLD_WHILE_SIGNED_IN,
+    /**
+     * @since v800
+     */
+    ASYNC_JOIN_TASK_DENIED,
+    /**
+     * @since v818
+     */
+    REALMS_TIMELINE_REQUIRED,
+    /**
+     * @since v818
+     */
+    GUEST_WITHOUT_HOST,
+    /**
+     * @since v818
+     */
+    FAILED_TO_JOIN_EXPERIENCE,
 }

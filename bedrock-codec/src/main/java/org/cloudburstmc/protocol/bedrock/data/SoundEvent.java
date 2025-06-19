@@ -750,6 +750,113 @@ public enum SoundEvent {
      * @since v729
      */
     BUNDLE_INSERT_FAILED,
-
+    /**
+     * @since v766
+     */
+    IMITATE_CREAKING,
+    /**
+     * @since v766
+     */
+    SPONGE_ABSORB,
+    /**
+     * @since v766
+     */
+    BLOCK_CREAKING_HEART_TRAIL,
+    /**
+     * @since v766
+     */
+    CREAKING_HEART_SPAWN,
+    /**
+     * @since v766
+     */
+    ACTIVATE,
+    /**
+     * @since v766
+     */
+    DEACTIVATE,
+    /**
+     * @since v766
+     */
+    FREEZE,
+    /**
+     * @since v766
+     */
+    UNFREEZE,
+    /**
+     * @since v766
+     */
+    OPEN,
+    /**
+     * @since v766
+     */
+    OPEN_LONG,
+    /**
+     * @since v766
+     */
+    CLOSE,
+    /**
+     * @since v766
+     */
+    CLOSE_LONG,
+    /**
+     * @since v800
+     */
+    IMITATE_PHANTOM,
+    /**
+     * @since v800
+     */
+    IMITATE_ZOGLIN,
+    /**
+     * @since v800
+     */
+    IMITATE_GUARDIAN,
+    /**
+     * @since v800
+     */
+    IMITATE_RAVAGER,
+    /**
+     * @since v800
+     */
+    IMITATE_PILLAGER,
+    /**
+     * @since v800
+     */
+    PLACE_IN_WATER,
+    /**
+     * @since v800
+     */
+    STATE_CHANGE,
+    /**
+     * @since v800
+     */
+    IMITATE_HAPPY_GHAST,
+    /**
+     * @since v800
+     */
+    UNEQUIP_GENERIC,
+    /**
+     * @since v818
+     */
+    RECORD_TEARS,
+    /**
+     * @since v818
+     */
+    THE_END_LIGHT_FLASH,
+    /**
+     * @since v818
+     */
+    LEAD_LEASH,
+    /**
+     * @since v818
+     */
+    LEAD_UNLEASH,
+    /**
+     * @since v818
+     */
+    LEAD_BREAK,
+    /**
+     * @since v818
+     */
+    UNSADDLE,
     UNDEFINED
 }

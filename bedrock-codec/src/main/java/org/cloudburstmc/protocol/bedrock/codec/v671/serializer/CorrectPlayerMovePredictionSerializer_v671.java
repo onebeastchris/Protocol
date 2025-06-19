@@ -33,7 +33,15 @@ public class CorrectPlayerMovePredictionSerializer_v671 extends CorrectPlayerMov
             this.readVehiclePrediction(buffer, helper, packet);
         }
         packet.setOnGround(buffer.readBoolean());
-        packet.setTick(VarInts.readUnsignedInt(buffer));
+        packet.setTick(VarInts.readUnsignedLong(buffer));
+    }
+
+    protected void writeVehiclePrediction(ByteBuf buffer, BedrockCodecHelper helper, CorrectPlayerMovePredictionPacket packet) {
+        helper.writeVector2f(buffer, packet.getVehicleRotation());
+    }
+
+    protected void readVehiclePrediction(ByteBuf buffer, BedrockCodecHelper helper, CorrectPlayerMovePredictionPacket packet) {
+        packet.setVehicleRotation(helper.readVector2f(buffer));
     }
 
     protected void writeVehiclePrediction(ByteBuf buffer, BedrockCodecHelper helper, CorrectPlayerMovePredictionPacket packet) {

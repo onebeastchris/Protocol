@@ -12,7 +12,6 @@ import org.cloudburstmc.protocol.common.NamedDefinition;
 import org.cloudburstmc.protocol.common.util.DefinitionUtils;
 import org.cloudburstmc.protocol.common.util.OptionalBoolean;
 import org.cloudburstmc.protocol.common.util.Preconditions;
-import org.cloudburstmc.protocol.common.util.VarInts;
 
 public class CameraInstructionSerializer_v712 extends CameraInstructionSerializer_618 {
     public static final CameraInstructionSerializer_v712 INSTANCE = new CameraInstructionSerializer_v712();
@@ -66,6 +65,6 @@ public class CameraInstructionSerializer_v712 extends CameraInstructionSerialize
         Vector3f facing = helper.readOptional(buf, null, helper::readVector3f);
         Vector2f viewOffset = helper.readOptional(buf, null, helper::readVector2f);
         OptionalBoolean defaultPreset = helper.readOptional(buf, OptionalBoolean.empty(), b -> OptionalBoolean.of(b.readBoolean()));
-        return new CameraSetInstruction(definition, ease, pos, rot, facing, viewOffset, defaultPreset);
+        return new CameraSetInstruction(definition, ease, pos, rot, facing, viewOffset, null, defaultPreset, false);
     }
 }

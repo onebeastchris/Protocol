@@ -332,7 +332,8 @@ public class BedrockCodecHelper_v407 extends BedrockCodecHelper_v390 {
                 buffer.readUnsignedByte(),
                 VarInts.readInt(buffer),
                 "",
-                0);
+                0,
+                "");
     }
 
     protected void writeItemEntry(ByteBuf buffer, ItemStackResponseSlot itemEntry) {
