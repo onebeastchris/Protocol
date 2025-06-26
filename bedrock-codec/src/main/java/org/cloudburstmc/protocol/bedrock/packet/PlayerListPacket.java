@@ -59,14 +59,5 @@ public class PlayerListPacket implements BedrockPacket {
             throw new AssertionError(e);
         }
     }
-
-    @Override
-    public PlayerListPacket clone() {
-        try {
-            return (PlayerListPacket) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError(e);
-        }
-    }
 }
 

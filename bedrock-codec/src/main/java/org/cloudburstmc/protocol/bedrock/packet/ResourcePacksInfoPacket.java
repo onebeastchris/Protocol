@@ -80,14 +80,5 @@ public class ResourcePacksInfoPacket implements BedrockPacket {
             throw new AssertionError(e);
         }
     }
-
-    @Override
-    public ResourcePacksInfoPacket clone() {
-        try {
-            return (ResourcePacksInfoPacket) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError(e);
-        }
-    }
 }
 
