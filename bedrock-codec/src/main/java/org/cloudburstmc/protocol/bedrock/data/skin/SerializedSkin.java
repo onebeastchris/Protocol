@@ -5,6 +5,7 @@ import lombok.*;
 import org.jose4j.json.internal.json_simple.JSONObject;
 import org.jose4j.json.internal.json_simple.JSONValue;
 
+import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,7 +14,8 @@ import static org.cloudburstmc.protocol.common.util.Preconditions.checkArgument;
 @Getter
 @ToString(exclude = {"geometryData"})
 @EqualsAndHashCode
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder(toBuilder = true, builderClassName = "Builder")
 public class SerializedSkin {
     private static final int PIXEL_SIZE = 4;
 
@@ -22,36 +24,65 @@ public class SerializedSkin {
     public static final int SKIN_128_64_SIZE = 128 * 64 * PIXEL_SIZE;
     public static final int SKIN_128_128_SIZE = 128 * 128 * PIXEL_SIZE;
 
-    private final String skinId;
+    private static final Color DEFAULT_COLOR = new Color(0, true);
+
+    private String skinId;
     /**
      * @since v428
      */
-    private final String playFabId;
-    private final String geometryName;
-    private final String skinResourcePatch;
-    private final ImageData skinData;
-    private final List<AnimationData> animations;
-    private final ImageData capeData;
-    private final String geometryData;
+    @Builder.Default
+    private String playFabId = "";
+    private String geometryName;
+    private String skinResourcePatch;
+    private ImageData skinData;
+    @Builder.Default
+    private List<AnimationData> animations = Collections.emptyList();
+    @Builder.Default
+    private ImageData capeData = ImageData.EMPTY;
+    private String geometryData;
     /**
      * @since v465
      */
-    private final String geometryDataEngineVersion;
-    private final String animationData;
-    private final boolean premium;
-    private final boolean persona;
-    private final boolean capeOnClassic;
+    @Builder.Default
+    private String geometryDataEngineVersion = "0.0.0";
+    @Builder.Default
+    private String animationData = "";
+    private boolean premium;
+    private boolean persona;
+    private boolean capeOnClassic;
     /**
      * @since v465
      */
-    private final boolean primaryUser;
-    private final String capeId;
-    private final String fullSkinId;
-    private final String armSize;
-    private final String skinColor;
-    private final List<PersonaPieceData> personaPieces;
-    private final List<PersonaPieceTintData> tintColors;
-    private final boolean overridingPlayerAppearance;
+    private boolean primaryUser;
+    @Builder.Default
+    private String capeId = "";
+    private String fullSkinId;
+    @Builder.Default
+    private String armSize = "wide";
+    /**
+     * @deprecated since v2168
+     */
+    private String skinColor;
+    /**
+     * @since v2168
+     */
+    @Builder.Default
+    private Color color = DEFAULT_COLOR;
+    @Builder.Default
+    private List<PersonaPieceData> personaPieces = Collections.emptyList();
+    @Builder.Default
+    private List<PersonaPieceTintData> tintColors = Collections.emptyList();
+    private boolean overridingPlayerAppearance;
+    /**
+     * @since v2168
+     */
+    @Builder.Default
+    private boolean trusted = true;
+    /**
+     * @since v2168
+     */
+    @Builder.Default
+    private String profileHash = "";
 
     public static SerializedSkin of(String skinId, String playFabId, ImageData skinData, ImageData capeData, String geometryName,
                                     String geometryData, boolean premiumSkin) {
@@ -59,8 +90,8 @@ public class SerializedSkin {
         capeData.checkLegacyCapeSize();
 
         return new SerializedSkin(skinId, playFabId, geometryName, null, skinData, Collections.emptyList(), capeData,
-                geometryData, "", "", premiumSkin, false, false, true, "", "",
-                "wide", "#0", Collections.emptyList(), Collections.emptyList(), true);
+                geometryData, "0.0.0", "", premiumSkin, false, false, true, "", "",
+                "wide", null, DEFAULT_COLOR, Collections.emptyList(), Collections.emptyList(), true, true, "");
     }
 
     public static SerializedSkin of(String skinId, String playFabId, String skinResourcePatch, ImageData skinData,
@@ -87,8 +118,8 @@ public class SerializedSkin {
                                     String skinColor, List<PersonaPieceData> personaPieces,
                                     List<PersonaPieceTintData> tintColors) {
         return new SerializedSkin(skinId, playFabId, null, skinResourcePatch, skinData,
-                Collections.unmodifiableList(new ObjectArrayList<>(animations)), capeData, geometryData, "", animationData,
-                premium, persona, capeOnClassic, primaryUser, capeId, fullSkinId, armSize, skinColor, personaPieces, tintColors, true);
+                Collections.unmodifiableList(new ObjectArrayList<>(animations)), capeData, geometryData, "0.0.0", animationData,
+                premium, persona, capeOnClassic, primaryUser, capeId, fullSkinId, armSize, skinColor, null, personaPieces, tintColors, true, true, "");
     }
 
     public static SerializedSkin of(String skinId, String playFabId, String skinResourcePatch, ImageData skinData,
@@ -100,7 +131,7 @@ public class SerializedSkin {
 
         return new SerializedSkin(skinId, playFabId, null, skinResourcePatch, skinData,
                 Collections.unmodifiableList(new ObjectArrayList<>(animations)), capeData, geometryData, geometryDataEngineVersion, animationData,
-                premium, persona, capeOnClassic, primaryUser, capeId, fullSkinId, armSize, skinColor, personaPieces, tintColors, true);
+                premium, persona, capeOnClassic, primaryUser, capeId, fullSkinId, armSize, skinColor, null, personaPieces, tintColors, true, true, "");
     }
 
     public static SerializedSkin of(String skinId, String playFabId, String skinResourcePatch, ImageData skinData,
@@ -112,13 +143,20 @@ public class SerializedSkin {
 
         return new SerializedSkin(skinId, playFabId, null, skinResourcePatch, skinData,
                 Collections.unmodifiableList(new ObjectArrayList<>(animations)), capeData, geometryData, geometryDataEngineVersion, animationData,
-                premium, persona, capeOnClassic, primaryUser, capeId, fullSkinId, armSize, skinColor, personaPieces, tintColors, overridingPlayerAppearance);
+                premium, persona, capeOnClassic, primaryUser, capeId, fullSkinId, armSize, skinColor, null, personaPieces, tintColors, overridingPlayerAppearance, true, "");
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
+    public static SerializedSkin of(String skinId, String playFabId, String skinResourcePatch, ImageData skinData,
+                                    List<AnimationData> animations, ImageData capeData, String geometryData,
+                                    String geometryDataEngineVersion, String animationData, boolean premium,
+                                    boolean persona, boolean capeOnClassic, boolean primaryUser, String capeId,
+                                    String fullSkinId, String armSize, Color color, List<PersonaPieceData> personaPieces,
+                                    List<PersonaPieceTintData> tintColors, boolean overridingPlayerAppearance, boolean trusted, String profileHash) {
 
+        return new SerializedSkin(skinId, playFabId, null, skinResourcePatch, skinData,
+                Collections.unmodifiableList(new ObjectArrayList<>(animations)), capeData, geometryData, geometryDataEngineVersion, animationData,
+                premium, persona, capeOnClassic, primaryUser, capeId, fullSkinId, armSize, null, color, personaPieces, tintColors, overridingPlayerAppearance, trusted, profileHash);
+    }
 
     public boolean isValid() {
         return isValidSkin() && isValidResourcePatch();
@@ -169,191 +207,38 @@ public class SerializedSkin {
         }
     }
 
-    public Builder toBuilder() {
-        return new Builder().skinId(this.skinId).playFabId(this.playFabId).geometryData(this.geometryName)
-                .skinResourcePatch(this.skinResourcePatch).skinData(this.skinData).animations(this.animations)
-                .capeData(this.capeData).geometryData(this.geometryData).geometryDataEngineVersion(this.geometryDataEngineVersion)
-                .animationData(this.animationData).premium(this.premium).persona(this.persona).capeOnClassic(this.capeOnClassic)
-                .primaryUser(this.primaryUser).capeId(this.capeId).fullSkinId(this.fullSkinId).armSize(this.armSize).skinColor(this.skinColor)
-                .personaPieces(this.personaPieces).tintColors(this.tintColors).overridingPlayerAppearance(this.overridingPlayerAppearance);
-    }
-
-    public static class Builder {
-        private String skinId;
-        private String playFabId;
-        private String geometryName;
-        private String skinResourcePatch;
-        private ImageData skinData;
-        private List<AnimationData> animations;
-        private ImageData capeData;
-        private String geometryData;
-        private String animationData;
-        private boolean premium;
-        private boolean persona;
-        private boolean capeOnClassic;
-        private String capeId;
-        private String fullSkinId;
-        private String armSize;
-        private String skinColor;
-        private List<PersonaPieceData> personaPieces;
-        private List<PersonaPieceTintData> tintColors;
-        private String geometryDataEngineVersion;
-        private boolean primaryUser;
-        private boolean overridingPlayerAppearance;
-
-        Builder() {
-        }
-
-        public Builder skinId(String skinId) {
-            this.skinId = skinId;
-            return this;
-        }
-
-        public Builder playFabId(String playFabId) {
-            this.playFabId = playFabId;
-            return this;
-        }
-
-        public Builder geometryName(String geometryName) {
-            this.geometryName = geometryName;
-            return this;
-        }
-
-        public Builder skinResourcePatch(String skinResourcePatch) {
-            this.skinResourcePatch = skinResourcePatch;
-            return this;
-        }
-
-        public Builder skinData(ImageData skinData) {
-            this.skinData = skinData;
-            return this;
-        }
-
-        public Builder animations(List<AnimationData> animations) {
-            this.animations = animations;
-            return this;
-        }
-
-        public Builder capeData(ImageData capeData) {
-            this.capeData = capeData;
-            return this;
-        }
-
-        public Builder geometryData(String geometryData) {
-            this.geometryData = geometryData;
-            return this;
-        }
-
-        public Builder animationData(String animationData) {
-            this.animationData = animationData;
-            return this;
-        }
-
-        public Builder premium(boolean premium) {
-            this.premium = premium;
-            return this;
-        }
-
-        public Builder persona(boolean persona) {
-            this.persona = persona;
-            return this;
-        }
-
-        public Builder capeOnClassic(boolean capeOnClassic) {
-            this.capeOnClassic = capeOnClassic;
-            return this;
-        }
-
-        public Builder capeId(String capeId) {
-            this.capeId = capeId;
-            return this;
-        }
-
-        public Builder fullSkinId(String fullSkinId) {
-            this.fullSkinId = fullSkinId;
-            return this;
-        }
-
-        public Builder armSize(String armSize) {
-            this.armSize = armSize;
-            return this;
-        }
-
-        public Builder skinColor(String skinColor) {
-            this.skinColor = skinColor;
-            return this;
-        }
-
-        public Builder personaPieces(List<PersonaPieceData> personaPieces) {
-            this.personaPieces = personaPieces;
-            return this;
-        }
-
-        public Builder tintColors(List<PersonaPieceTintData> tintColors) {
-            this.tintColors = tintColors;
-            return this;
-        }
-
-        public Builder geometryDataEngineVersion(String version) {
-            this.geometryDataEngineVersion = version;
-            return this;
-        }
-
-        public Builder primaryUser(boolean primaryUser) {
-            this.primaryUser = primaryUser;
-            return this;
-        }
-
-        public Builder overridingPlayerAppearance(boolean overridingPlayerAppearance) {
-            this.overridingPlayerAppearance = overridingPlayerAppearance;
-            return this;
-        }
-
-        public SerializedSkin build() {
-            if (playFabId == null) playFabId = "";
-            if (animations == null) animations = Collections.emptyList();
-            if (animationData == null) animationData = "";
-            if (capeData == null) capeData = ImageData.EMPTY;
-            if (capeId == null) capeId = "";
-            if (fullSkinId == null) fullSkinId = skinId + capeId;
-            if (armSize == null) armSize = "wide";
-            if (geometryDataEngineVersion == null) geometryDataEngineVersion = "";
-            if (skinColor == null) skinColor = "#0";
-            if (personaPieces == null) personaPieces = Collections.emptyList();
-            if (tintColors == null) tintColors = Collections.emptyList();
-
-            if (skinResourcePatch == null) {
-                return SerializedSkin.of(skinId, playFabId, geometryName, skinData, animations, capeData, geometryData,
-                        animationData, premium, persona, capeOnClassic, capeId, fullSkinId);
+    /**
+     * @deprecated since v2168, use color
+     */
+    public String getSkinColor() {
+        if ((skinColor == null || skinColor.isEmpty()) && color != null) {
+            if (color.getAlpha() == 0) {
+                skinColor = "#0";
             } else {
-                return SerializedSkin.of(skinId, playFabId, skinResourcePatch, skinData, animations, capeData, geometryData, geometryDataEngineVersion,
-                        animationData, premium, persona, capeOnClassic, primaryUser, capeId, fullSkinId, armSize, skinColor, personaPieces, tintColors, overridingPlayerAppearance);
+                skinColor = String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
             }
         }
+        return skinColor;
+    }
 
-        public String toString() {
-            return "SerializedSkin.Builder(skinId=" + this.skinId +
-                    ", playFabId=" + this.playFabId +
-                    ", geometryName=" + this.geometryName +
-                    ", skinResourcePatch=" + this.skinResourcePatch +
-                    ", skinData=" + this.skinData +
-                    ", animations=" + this.animations +
-                    ", capeData=" + this.capeData +
-                    ", geometryData=" + this.geometryData +
-                    ", animationData=" + this.animationData +
-                    ", premium=" + this.premium +
-                    ", persona=" + this.persona +
-                    ", capeOnClassic=" + this.capeOnClassic +
-                    ", capeId=" + this.capeId +
-                    ", fullSkinId=" + this.fullSkinId +
-                    ", armSize=" + this.armSize +
-                    ", skinColor=" + this.skinColor +
-                    ", personaPieces=" + this.personaPieces +
-                    ", tintColors=" + this.tintColors +
-                    ", geometryDataEngineVersion=" + this.geometryDataEngineVersion +
-                    ", primaryUser=" + this.primaryUser +
-                    ", overridingPlayerAppearance=" + this.overridingPlayerAppearance +
-                    ")";
+    /**
+     * @since v2168
+     */
+    public Color getColor() {
+        if ((color == null || color == DEFAULT_COLOR) && skinColor != null && !skinColor.isEmpty()) {
+            if (skinColor.equals("#0")) {
+                color = new Color(0, true);
+            } else {
+                color = new Color((int) Long.parseLong(skinColor.startsWith("#") ? skinColor.substring(1) : skinColor, 16), true);
+            }
         }
+        return color;
+    }
+
+    public String getFullSkinId() {
+        if (fullSkinId == null) {
+            fullSkinId = skinId + capeId;
+        }
+        return fullSkinId;
     }
 }

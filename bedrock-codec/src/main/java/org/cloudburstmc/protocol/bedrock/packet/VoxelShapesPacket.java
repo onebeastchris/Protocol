@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Syncs client with server voxel shape data on world join. This packet contains a copy of all behavior pack voxel shapes data.
- * Sends the serializable voxel shapes data to the client as it's needed on both the client and server.
+ * Syncs client with server voxel shape data on world join. This packet contains a copy of all behavior pack voxel shapes data and is used by StartGamePacket.
+ * Sends the serializable voxel shapes data to the client as it's needed on both the client and server. This packet should always be sent before StartGamePacket. (since v975)
  *
  * @since v924
  */
@@ -22,6 +22,10 @@ public class VoxelShapesPacket implements BedrockPacket {
 
     private List<SerializableVoxelShape> shapes;
     private Map<String, Integer> nameMap;
+    /**
+     * @since v944
+     */
+    private int customShapeCount;
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {

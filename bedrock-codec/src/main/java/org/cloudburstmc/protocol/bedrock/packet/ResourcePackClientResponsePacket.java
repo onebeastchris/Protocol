@@ -25,6 +25,9 @@ public class ResourcePackClientResponsePacket implements BedrockPacket {
     }
 
     public enum Status {
+        /**
+         * @deprecated since v2168
+         */
         NONE,
         REFUSED,
         SEND_PACKS,

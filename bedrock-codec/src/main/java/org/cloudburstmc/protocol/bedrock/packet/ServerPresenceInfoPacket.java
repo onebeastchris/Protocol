@@ -3,17 +3,20 @@ package org.cloudburstmc.protocol.bedrock.packet;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.cloudburstmc.protocol.bedrock.data.PresenceConfiguration;
 import org.cloudburstmc.protocol.common.PacketSignal;
 
 /**
- * Allows the server to tell the client to close all the Data Driven UI screens.
+ * Sent by the server to provide PresenceConfiguration to the client.
  *
- * @since v924
+ * @since v975
  */
 @Data
 @EqualsAndHashCode(doNotUseGetters = true)
 @ToString(doNotUseGetters = true)
-public class ClientboundDataDrivenUICloseAllScreensPacket implements BedrockPacket {
+public class ServerPresenceInfoPacket implements BedrockPacket {
+
+    private PresenceConfiguration presenceConfiguration;
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {
@@ -21,13 +24,13 @@ public class ClientboundDataDrivenUICloseAllScreensPacket implements BedrockPack
     }
 
     public BedrockPacketType getPacketType() {
-        return BedrockPacketType.CLIENTBOUND_DATA_DRIVEN_UI_CLOSE_ALL_SCREENS;
+        return BedrockPacketType.SERVER_PRESENCE_INFO;
     }
 
     @Override
-    public ClientboundDataDrivenUICloseAllScreensPacket clone() {
+    public ServerPresenceInfoPacket clone() {
         try {
-            return (ClientboundDataDrivenUICloseAllScreensPacket) super.clone();
+            return (ServerPresenceInfoPacket) super.clone();
         } catch (CloneNotSupportedException e) {
             throw new AssertionError(e);
         }

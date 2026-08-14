@@ -940,7 +940,7 @@ public interface BedrockPacketHandler extends PacketHandler {
         return PacketSignal.UNHANDLED;
     }
 
-    default PacketSignal handle(ClientboundDataDrivenUICloseAllScreensPacket packet) {
+    default PacketSignal handle(ClientboundDataDrivenUICloseScreenPacket packet) {
         return PacketSignal.UNHANDLED;
     }
 
@@ -957,6 +957,50 @@ public interface BedrockPacketHandler extends PacketHandler {
     }
 
     default PacketSignal handle(VoxelShapesPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(ResourcePacksReadyForValidationPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(LocatorBarPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(PartyChangedPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(ServerboundDataDrivenScreenClosedPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(SyncWorldClocksPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(ClientboundAttributeLayerSyncPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(ServerStoreInfoPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(ServerPresenceInfoPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(ClientboundUpdateSoundDataPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(SendPartyDestinationCookiePacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(PartyDestinationCookieResponsePacket packet) {
         return PacketSignal.UNHANDLED;
     }
 }

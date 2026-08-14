@@ -89,6 +89,14 @@ public class StartGamePacket implements BedrockPacket {
      * @since 1.19.20
      */
     private boolean disablingCustomSkins;
+    /**
+     * @since v1001
+     */
+    private int serverEditorConnectionPolicy;
+    /**
+     * @since v1001
+     */
+    private boolean allowAnonymousBlockDropsInEditorWorlds;
     // Level settings end
     private String levelId;
     private CharSequence levelName;
@@ -199,11 +207,11 @@ public class StartGamePacket implements BedrockPacket {
     /**
      * @since v924
      */
-    private boolean hasServerJoinInformation;
+    private ServerConfigurationJoinInfo serverConfigurationJoinInfo;
     /**
-     * @since v924
+     * @since v1001
      */
-    private ServerTelemetryData serverTelemetryData = ServerTelemetryData.EMPTY;
+    private boolean isLoggingChat;
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {
